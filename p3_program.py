@@ -20,7 +20,26 @@
 """
 
 def teleportation():
-    None
+	"""
+  	Pseudocode:
+	// Step 1: Base Case
+	Calculate D[i][j][0] as All Pairs Shortest path by ignoring the astro haunted galaxies.
+
+	// Step 2: Inductive Step
+	for k = 1 to m
+		for i = 1 to n
+			for j = 1 to n
+				Calculate D[i][j][k] = min {D([i][j][k-1], D[i][z][k-1] + D[z][j][0] for all z such that A[z] = 1}
+	"""
+	# Step 1: Base Case
+	# Calculate D[i][j][0] as All Pairs Shortest path by ignoring the astro haunted galaxies.
+
+	# Step 2: Inductive Step
+	# for k = 1 to m
+	# 	for i = 1 to n
+	# 		for j = 1 to n
+	# 			Calculate D[i][j][k] = min {D([i][j][k-1], D[i][z][k-1] + D[z][j][0] for all z such that A[z] = 1}
+	None
 
 if __name__ == "__main__":
     None
