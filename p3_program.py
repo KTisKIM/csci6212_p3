@@ -51,46 +51,74 @@ def findMinimumCost(n, k, a, c):
 ### Second Solution ###
 #######################
 def teleportation(n, m, c, a, k):  # minimum cost
-	"""
-  	<Pseudocode>
-	// Step 1: Base Case
-	Calculate D[i][j][0] as All Pairs Shortest path by ignoring the astro haunted galaxies.
+    """
+    <Pseudocode>
+    // Step 1: Base Case
+    Calculate D[i][j][0] as All Pairs Shortest path by ignoring the astro haunted galaxies.
 
-	// Step 2: Inductive Step
-	for k = 1 to m
-		for i = 1 to n
-			for j = 1 to n
-				Calculate D[i][j][k] = min {D([i][j][k-1], D[i][z][k-1] + D[z][j][0] for all z such that A[z] = 1}
+    // Step 2: Inductive Step
+    for k = 1 to m
+        for i = 1 to n
+            for j = 1 to n
+                Calculate D[i][j][k] = min {D([i][j][k-1], D[i][z][k-1] + D[z][j][0] for all z such that A[z] = 1}
+
+    """
+    # Step 1: Initialize D for k=0 (base case)
+    D = [[[float('inf')] * (k + 1) for _ in range(n)] for _ in range(n)]
     
-	"""
+    for i in range(n):
+        for j in range(n):
+            if i == j:
+                D[i][j][0] = 0
+            elif a[i] == 1:
+                D[i][j][0] = c[i][j]
+    
+    # Step 2: Dynamic Programming (Inductive Step)
+    for kk in range(1, k + 1):
+        for i in range(n):
+            for j in range(n):
+                for z in range(n):
+                    if a[z] == 1:
+                        D[i][j][kk] = min(D[i][j][kk], D[i][z][kk - 1] + D[z][j][0])
+    
+    return D[0][n-1][k]
+
 
 if __name__ == "__main__":
     ### First Solution ###
     ################################################################################################
-    # Example input values
-    n = 100
-    k = int(n * 0.1)
-    # a = [0, 1, 1, 0, 1]  # 1 means "astro-haunted"
-    zero_and_ones = list(range(2))  # 1 means "astro-haunted"
-	# zero_to_nine = list(range(10))                  # numbers between 0-9 for the input array.
-    # a = [choice(zero_and_ones) for i in range(n)]    # array of numbers based on the size of 'n'
-    a = [choice(zero_and_ones) for _ in range(n-2)]
-    a = [0] + a + [0]
-    c = lambda i, j: i + j  # A simple cost function for illustration
+    # # Example input values
+    # n = 100
+    # k = int(n * 0.1)
+    # # a = [0, 1, 1, 0, 1]  # 1 means "astro-haunted"
+    # zero_and_ones = list(range(2))  # 1 means "astro-haunted"
+	# # zero_to_nine = list(range(10))                  # numbers between 0-9 for the input array.
+    # # a = [choice(zero_and_ones) for i in range(n)]    # array of numbers based on the size of 'n'
+    # a = [choice(zero_and_ones) for _ in range(n-2)]
+    # a = [0] + a + [0]
+    # c = lambda i, j: i + j  # A simple cost function for illustration
 
     
-    # print("what are you:", a)
+    # # print("what are you:", a)
     
-    start = perf_counter_ns()
-    min_cost = findMinimumCost(n, k, a, c)
-    end = perf_counter_ns()
-    print(f"Running time: {end - start} nanoseconds") ### Experimental result ###
+    # start = perf_counter_ns()
+    # min_cost = findMinimumCost(n, k, a, c)
+    # end = perf_counter_ns()
+    # print(f"Running time: {end - start} nanoseconds") ### Experimental result ###
     
-    # print(f"Minimum cost to travel from galaxy 1 to galaxy {n} with at most {k}")
-    # print(f"Minimum cost is {min_cost}")
+    # # print(f"Minimum cost to travel from galaxy 1 to galaxy {n} with at most {k}")
+    # # print(f"Minimum cost is {min_cost}")
     ################################################################################################
     
     ### Second Solution
     ################################################################################################
-    
+    # Example usage
+    n = 4  # Number of galaxies
+    m = 2  # Number of galaxy pairs with teleportation cost
+    c = [[0, 5, 3, 2], [5, 0, 1, 6], [3, 1, 0, 4], [2, 6, 4, 0]]  # Teleportation cost matrix
+    a = [0, 1, 0, 1]  # Astro-haunted galaxies
+    k = 1  # Maximum allowed astro-haunted galaxies
+
+    result = teleportation(n, m, c, a, k)
+    print("Minimum cost to teleport:", result)
     ################################################################################################
