@@ -6,7 +6,6 @@
 #   Professor: Amrinder Arora                  #
 #                 < Project >                  #
 ################################################
-
 """
 - Problem #0
   - Teleportation in Astro haunted galaxies
@@ -121,23 +120,25 @@ if __name__ == "__main__":
     # # print(f"Minimum cost is {min_cost}")
     ################################################################################################
     
-    ### Second Solution
+    ### Second Solution ###
     ################################################################################################
     # Example usage
-    n = 4  # Number of galaxies
-    # k = int(n * 0.1)    # Maximum allowed astro-haunted galaxies
-    k = 1    # Maximum allowed astro-haunted galaxies
-    zero_and_ones = list(range(2))  # 0 and 1
-    # a = [choice(zero_and_ones) for _ in range(n-2)]  # Astro-haunted galaxies
-    # a = [0] + a + [0]   # Galaxies 1 and n are not astro-haunted.
-    a = [0, 1, 0, 1]
-    c = [[0, 5, 3, 2], [5, 0, 1, 6], [3, 1, 0, 4], [2, 6, 4, 0]]  # Teleportation cost matrix
-    # m = 2  # Number of galaxy pairs with teleportation cost
+    # n = 4   # Number of galaxies
+    # k = 1   # Maximum allowed astro-haunted galaxies
+    # a = [0, 1, 0, 1]
+    # c = [[0, 5, 3, 2], [5, 0, 1, 6], [3, 1, 0, 4], [2, 6, 4, 0]]  # Teleportation cost matrix
+    
+    n = 10                                          # Number of galaxies
+    k = int(n * 0.1)                                # Maximum allowed astro-haunted galaxies
+    zero_and_ones = list(range(2))                  # List of 0 and 1
+    a = [choice(zero_and_ones) for _ in range(n-2)] # Astro-haunted galaxies, a's total list size is the number of galaxies.
+    a = [0] + a + [0]                               # Galaxies 1 and n are not astro-haunted.
+    c = lambda i, j: i + j  # A simple Teleportation cost function
 
-    start = perf_counter_ns()
+    start = perf_counter_ns()                         # start time
     result = teleportation_2(n, k, a, c)
-    end = perf_counter_ns()
+    end = perf_counter_ns()                           # end time
     print(f"Running time: {end - start} nanoseconds") ### Experimental result ###
     
-    print("Minimum cost to teleport:", result)
+    print("Minimum cost to teleport:", result)      # Minimum cost
     ################################################################################################
