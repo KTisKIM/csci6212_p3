@@ -25,14 +25,26 @@ from random import choice
 ######################
 ### First Solution ###
 ######################
-def findMinimumCost(n, k, a, c):
+def teleportation(n, k, a, c):    # findMinimumCost
+    """
+    <Pseudocode>
+    // Step 1: Base Case
+    Calculate D[i][j][0] as All Pairs Shortest path by ignoring the astro haunted galaxies.
+
+    // Step 2: Inductive Step
+    for kk = 1 to k
+        for i = 1 to n
+            for j = 1 to n
+                Calculate D[i][j][kk] = min{D([i][j][kk-1], D[i][z][kk-1] + D[z][j][0] for all z such that a[z] = 1}
+
+    """
     # Initialize the dynamic programming table
-    dp = [[float('inf') for _ in range(k + 1)] for _ in range(n)]
-    # dp = [[0 for _ in range(k + 1)] for _ in range(n)]
+    D = [[float('inf') for _ in range(k + 1)] for _ in range(n)]
+    # D = [[0 for _ in range(k + 1)] for _ in range(n)]
 
     # Initialize the base cases
     for j in range(k + 1):
-        dp[0][j] = 0
+        D[0][j] = 0
 
     # Dynamic programming to compute the minimum cost
     for i in range(1, n):
@@ -41,16 +53,16 @@ def findMinimumCost(n, k, a, c):
                 for x in range(i):
                     if a[x] == 1:
                         # print("BEFORE:::", dp[i][j], dp[x][j - 1] + c(x, i))
-                        dp[i][j] = min(dp[i][j], dp[x][j - 1] + c(x, i))
+                        D[i][j] = min(D[i][j], D[x][j - 1] + c(x, i))
                         # print("MINIMUM:", dp[i][j])
 
     # The minimum cost to reach galaxy n from galaxy 1 with at most k astro-haunted galaxies
-    return dp[n - 1][k]
+    return D[n - 1][k]
 
 #######################
 ### Second Solution ###
 #######################
-def teleportation(n, k, a, c):  # minimum cost
+def teleportation_2(n, k, a, c):  # minimum cost
     """
     <Pseudocode>
     // Step 1: Base Case
@@ -102,7 +114,7 @@ if __name__ == "__main__":
     # c = lambda i, j: i + j  # A simple cost function for illustration
     
     # start = perf_counter_ns()
-    # min_cost = findMinimumCost(n, k, a, c)
+    # min_cost = teleportation(n, k, a, c)
     # end = perf_counter_ns()
     # print(f"Running time: {end - start} nanoseconds") ### Experimental result ###
     
@@ -124,7 +136,7 @@ if __name__ == "__main__":
     # m = 2  # Number of galaxy pairs with teleportation cost
 
     start = perf_counter_ns()
-    result = teleportation(n, k, a, c)
+    result = teleportation_2(n, k, a, c)
     end = perf_counter_ns()
     print(f"Running time: {end - start} nanoseconds") ### Experimental result ###
     
