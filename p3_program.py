@@ -27,8 +27,8 @@ from random import choice
 ######################
 def findMinimumCost(n, k, a, c):
     # Initialize the dynamic programming table
-    # dp = [[float('inf') for _ in range(k + 1)] for _ in range(n)]
-    dp = [[0 for _ in range(k + 1)] for _ in range(n)]
+    dp = [[float('inf') for _ in range(k + 1)] for _ in range(n)]
+    # dp = [[0 for _ in range(k + 1)] for _ in range(n)]
 
     # Initialize the base cases
     for j in range(k + 1):
@@ -60,7 +60,7 @@ def teleportation(n, m, c, a, k):  # minimum cost
     for k = 1 to m
         for i = 1 to n
             for j = 1 to n
-                Calculate D[i][j][k] = min {D([i][j][k-1], D[i][z][k-1] + D[z][j][0] for all z such that A[z] = 1}
+                Calculate D[i][j][k] = min{D([i][j][k-1], D[i][z][k-1] + D[z][j][0] for all z such that A[z] = 1}
 
     """
     # Step 1: Initialize D for k=0 (base case)
@@ -80,6 +80,7 @@ def teleportation(n, m, c, a, k):  # minimum cost
                 for z in range(n):
                     if a[z] == 1:
                         D[i][j][kk] = min(D[i][j][kk], D[i][z][kk - 1] + D[z][j][0])
+    # Time Complexity: O(kn^3)
     
     return D[0][n-1][k]
 
@@ -90,14 +91,10 @@ if __name__ == "__main__":
     # # Example input values
     # n = 100
     # k = int(n * 0.1)
-    # # a = [0, 1, 1, 0, 1]  # 1 means "astro-haunted"
     # zero_and_ones = list(range(2))  # 1 means "astro-haunted"
     # a = [choice(zero_and_ones) for _ in range(n-2)]
     # a = [0] + a + [0]
     # c = lambda i, j: i + j  # A simple cost function for illustration
-
-    
-    # # print("what are you:", a)
     
     # start = perf_counter_ns()
     # min_cost = findMinimumCost(n, k, a, c)
@@ -112,11 +109,11 @@ if __name__ == "__main__":
     ################################################################################################
     # Example usage
     n = 10  # Number of galaxies
-    k = int(n * 0.1)  # Maximum allowed astro-haunted galaxies
-    c = [[0, 5, 3, 2], [5, 0, 1, 6], [3, 1, 0, 4], [2, 6, 4, 0]]  # Teleportation cost matrix
-    zero_and_ones = list(range(2))
+    k = int(n * 0.1)    # Maximum allowed astro-haunted galaxies
+    zero_and_ones = list(range(2))  # 0 and 1
     a = [choice(zero_and_ones) for _ in range(n-2)]  # Astro-haunted galaxies
-    a = [0] + a + [0]
+    a = [0] + a + [0]   # Galaxies 1 and n are not astro-haunted.
+    c = [[0, 5, 3, 2], [5, 0, 1, 6], [3, 1, 0, 4], [2, 6, 4, 0]]  # Teleportation cost matrix
     m = 2  # Number of galaxy pairs with teleportation cost
 
     start = perf_counter_ns()
