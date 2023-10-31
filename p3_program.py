@@ -23,7 +23,7 @@ from time import perf_counter_ns
 from random import choice
 
 ######################
-### first solution ###
+### First Solution ###
 ######################
 def findMinimumCost(n, k, a, c):
     # Initialize the dynamic programming table
@@ -92,8 +92,6 @@ if __name__ == "__main__":
     # k = int(n * 0.1)
     # # a = [0, 1, 1, 0, 1]  # 1 means "astro-haunted"
     # zero_and_ones = list(range(2))  # 1 means "astro-haunted"
-	# # zero_to_nine = list(range(10))                  # numbers between 0-9 for the input array.
-    # # a = [choice(zero_and_ones) for i in range(n)]    # array of numbers based on the size of 'n'
     # a = [choice(zero_and_ones) for _ in range(n-2)]
     # a = [0] + a + [0]
     # c = lambda i, j: i + j  # A simple cost function for illustration
@@ -113,12 +111,18 @@ if __name__ == "__main__":
     ### Second Solution
     ################################################################################################
     # Example usage
-    n = 4  # Number of galaxies
-    m = 2  # Number of galaxy pairs with teleportation cost
+    n = 10  # Number of galaxies
+    k = int(n * 0.1)  # Maximum allowed astro-haunted galaxies
     c = [[0, 5, 3, 2], [5, 0, 1, 6], [3, 1, 0, 4], [2, 6, 4, 0]]  # Teleportation cost matrix
-    a = [0, 1, 0, 1]  # Astro-haunted galaxies
-    k = 1  # Maximum allowed astro-haunted galaxies
+    zero_and_ones = list(range(2))
+    a = [choice(zero_and_ones) for _ in range(n-2)]  # Astro-haunted galaxies
+    a = [0] + a + [0]
+    m = 2  # Number of galaxy pairs with teleportation cost
 
+    start = perf_counter_ns()
     result = teleportation(n, m, c, a, k)
+    end = perf_counter_ns()
+    print(f"Running time: {end - start} nanoseconds") ### Experimental result ###
+    
     print("Minimum cost to teleport:", result)
     ################################################################################################
