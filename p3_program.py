@@ -40,7 +40,6 @@ def teleportation(n, k, a, c):    # findMinimumCost
     """
     # Initialize the dynamic programming table
     D = [[float('inf') for _ in range(k + 1)] for _ in range(n)]
-    # D = [[0 for _ in range(k + 1)] for _ in range(n)]
 
     # Initialize the base cases
     for j in range(k + 1):
@@ -99,7 +98,7 @@ def teleportation_2(n, k, a, c):  # minimum cost
                         D[i][j][kk] = min(D[i][j][kk], D[i][z][kk - 1] + D[z][j][0])
     # Time Complexity: O(kn^3)
     
-    return D[0][n-1][k]
+    return D[0][n - 1][k]
 
 
 if __name__ == "__main__":
