@@ -35,7 +35,6 @@ def teleportation(n, k, a, c):    # findMinimumCost
         for i = 1 to n
             for j = 1 to n
                 Calculate D[i][j][kk] = min{D([i][j][kk-1], D[i][z][kk-1] + D[z][j][0] for all z such that a[z] = 1}
-
     """
     # Initialize the dynamic programming table
     D = [[float('inf') for _ in range(k + 1)] for _ in range(n)]
@@ -71,7 +70,6 @@ def teleportation_2(n, k, a, c):  # minimum cost
         for i = 1 to n
             for j = 1 to n
                 Calculate D[i][j][kk] = min{D([i][j][kk-1], D[i][z][kk-1] + D[z][j][0] for all z such that a[z] = 1}
-
     """
     # Step 1: Initialize D for k=0 (base case)
     D = [[[float('inf')] * (k+1) for _ in range(n)] for _ in range(n)]
@@ -84,7 +82,7 @@ def teleportation_2(n, k, a, c):  # minimum cost
                 D[i][j][0] = 0
             elif a[i] == 1:
                 print(f"this is 1, hiiii")
-                D[i][j][0] = c[i][j]
+                D[i][j][0] = c
                 
     print(D)
     
