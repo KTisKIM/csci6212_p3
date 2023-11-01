@@ -73,18 +73,17 @@ def teleportation_2(n, k, a, c):  # minimum cost
     """
     # Step 1: Initialize D for k=0 (base case)
     D = [[[float('inf')] * (k+1) for _ in range(n)] for _ in range(n)]
-    print(D)
+    print("Original:", D)
     
     for i in range(n):
         for j in range(n):
             if i == j:
-                print(f"{i},{j},hiiii")
                 D[i][j][0] = 0
             elif a[i] == 1:
-                print(f"this is 1, hiiii")
-                D[i][j][0] = c
-                
-    print(D)
+                # print(f"this is 1, hiiii")
+                D[i][j][0] = c(i, j)
+                # print("이건 c(i,j)", D[i][j][0])
+    print("After:", D)
     
     # Step 2: Dynamic Programming (Inductive Step)
     for kk in range(1, k+1):
@@ -94,6 +93,8 @@ def teleportation_2(n, k, a, c):  # minimum cost
                     if a[z] == 1:
                         D[i][j][kk] = min(D[i][j][kk], D[i][z][kk - 1] + D[z][j][0])
     # Time Complexity: O(kn^3)
+
+    print("Result?", D[0][n - 1][k])
     
     return D[0][n - 1][k]
 
@@ -126,7 +127,7 @@ if __name__ == "__main__":
     # a = [0, 1, 0, 1]
     # c = [[0, 5, 3, 2], [5, 0, 1, 6], [3, 1, 0, 4], [2, 6, 4, 0]]  # Teleportation cost matrix
     
-    n = 10                                          # Number of galaxies
+    n = 100                                         # Number of galaxies
     k = int(n * 0.1)                                # Maximum allowed astro-haunted galaxies
     zero_and_ones = list(range(2))                  # List of 0 and 1
     a = [choice(zero_and_ones) for _ in range(n-2)] # Astro-haunted galaxies, a's total list size is the number of galaxies.
