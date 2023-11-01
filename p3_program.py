@@ -19,7 +19,7 @@
 """
 
 from time import perf_counter_ns
-from random import choice
+from random import choice, choices
 
 ######################
 ### First Solution ###
