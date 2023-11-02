@@ -1,7 +1,37 @@
+################################################
+#   Team: Team 1                               #
+#   Members: Karan Patal / Oscar(Jiaye) Fang   #
+#           / Keuntae Kim / Edward Yeboah      #
+#   Course: CSCI 6212 - 12                     #
+#   Professor: Amrinder Arora                  #
+#                < Project 3 >                 #
+################################################
+"""
+- Problem #0
+  - Teleportation in Astro haunted galaxies
+    - You have a teleporter that can take you from galaxy i to galaxy j.
+    Cost to teleport is given by c(i,j), which can be arbitrary. Some galaxies
+    are “astro-haunted” - this is specified by a(i) which can be 0 or 1 (1 means
+    that that galaxy is “astro-haunted”). Give a polynomial time algorithm that
+    minimizes the cost of going from galaxy 1 to galaxy n, such that you pass
+    through no more than k astro-haunted galaxies. (You can assume that galaxies
+    1 and n are not astro-haunted.)
+"""
+"""
+<Pseudocode>
+// Step 1: Base Case
+Calculate D[i][j][0] as All Pairs Shortest path by ignoring the astro haunted galaxies.
+
+// Step 2: Inductive Step
+for kk = 1 to k
+    for i = 1 to n
+        for j = 1 to n
+            Calculate D[i][j][kk] = min{D([i][j][kk-1], D[i][z][kk-1] + D[z][j][0] for all z such that a[z] = 1}
+"""
+
 import random
 import time
 import sys
-
 
 def pairs_shortest_path(D, A, n):
     """
@@ -76,9 +106,9 @@ def test_run_time(n, m, prob):
     for i in range(n):
         for j in range(n):
             cost[i][j] = random.randint(10, 1000)
-    start = time.time()
+    start = time.time_ns()
     run(n, m, A, cost)
-    end = time.time()
+    end = time.time_ns()
     print("n = {}, m = {}, prob = {}, run time = {}".format(n, m, prob, end - start))
 
 
@@ -86,9 +116,10 @@ def test_run_time(n, m, prob):
 # python3 teleportation.py 10 3 0.3
 if __name__ == "__main__":
     n = int(sys.argv[1])
-    m = int(sys.argv[2])
-    prob = float(sys.argv[3])
-    if (prob < 0) or (prob > 1):
-        print("Probability must be between 0 and 1")
-        sys.exit(1)
-    test_run_time(int(sys.argv[1]), m, prob)
+    # m = int(sys.argv[2])
+    # prob = float(sys.argv[3])
+    # if (prob < 0) or (prob > 1):
+    #     print("Probability must be between 0 and 1")
+    #     sys.exit(1)
+    # test_run_time(int(sys.argv[1]), m, prob)
+    test_run_time(int(sys.argv[1]), int(n * 0.1), 0.3)
